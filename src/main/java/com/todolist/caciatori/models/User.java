@@ -6,19 +6,25 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Entity
-@Table(name = "app_user")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private long id;
-    @NonNull
-    private String name;
-    @NonNull
-    private String password;
-    @NonNull
-    private String email;
 
+    @NonNull
+    @Column
+    private String name;
+
+    @NonNull
+    @Column
+    private String password;
+
+    @NonNull
+    @Column
+    private String email;
 }
