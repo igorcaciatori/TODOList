@@ -10,10 +10,16 @@ spring:
     url: jdbc:mysql://localhost:3306/TODOList?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password:
+    password: ""
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /index.html

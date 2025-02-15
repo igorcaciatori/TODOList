@@ -1,7 +1,9 @@
 package com.todolist.caciatori.controllers;
 
+import com.todolist.caciatori.dtos.TaskDTO;
 import com.todolist.caciatori.models.Task;
 import com.todolist.caciatori.services.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,17 +18,18 @@ public class TaskController {
     TaskService taskService;
 
     @PostMapping("/create")
-    public CompletableFuture<Task> createTask(@RequestBody Task task) {
-        return taskService.addTask(task);
+    @Operation(summary = "Creates a task", description = "Returns the DTO of the task created")
+    public CompletableFuture<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
+        return taskService.addTask(taskDTO);
     }
 
     @GetMapping("/get/{id}")
-    public CompletableFuture<Task> getTaskById(@PathVariable long id) {
+    public CompletableFuture<TaskDTO> getTaskById(@PathVariable long id) {
         return taskService.getTaskById(id);
     }
 
     @GetMapping("/get")
-    public CompletableFuture<List<Task>> getTasks() {
+    public CompletableFuture<List<TaskDTO>> getTasks() {
         return taskService.getTasks();
     }
 

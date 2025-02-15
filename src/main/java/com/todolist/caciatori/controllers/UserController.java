@@ -1,5 +1,7 @@
 package com.todolist.caciatori.controllers;
 
+import com.todolist.caciatori.dtos.UserRequestDTO;
+import com.todolist.caciatori.dtos.UserResponseDTO;
 import com.todolist.caciatori.models.Task;
 import com.todolist.caciatori.models.User;
 import com.todolist.caciatori.services.TaskService;
@@ -18,17 +20,17 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/create")
-    public CompletableFuture<User> createUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public CompletableFuture<UserResponseDTO> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        return userService.addUser(userRequestDTO);
     }
 
     @GetMapping("/get/{id}")
-    public CompletableFuture<User> getUserById(@PathVariable long id) {
+    public CompletableFuture<UserResponseDTO> getUserById(@PathVariable long id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/get")
-    public CompletableFuture<List<User>> getUsers() {
+    public CompletableFuture<List<UserResponseDTO>> getUsers() {
         return userService.getUsers();
     }
 

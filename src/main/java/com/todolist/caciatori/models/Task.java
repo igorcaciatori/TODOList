@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.util.List;
-
 @Entity
 @Table(name = "tasks")
 @Data
@@ -32,7 +30,5 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "fk_user")
-    @NonNull
-    @Column
     private User user;
 }
