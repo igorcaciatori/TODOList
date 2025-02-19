@@ -5,10 +5,15 @@ import com.todolist.caciatori.mappers.UserMapper;
 import com.todolist.caciatori.models.Task;
 import com.todolist.caciatori.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.todolist.caciatori.models.User;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -46,8 +51,13 @@ public class TaskService {
     @Async
     public CompletableFuture<TaskDTO> getTaskById(long id) {
         return CompletableFuture.supplyAsync(() -> {
-            Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
-            return convertToDTO(task);
+            try {
+                Task task = taskRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found"));
+                return convertToDTO(task);
+            } catch (ResponseStatusException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
         });
     }
 
