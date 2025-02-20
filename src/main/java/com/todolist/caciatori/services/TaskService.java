@@ -30,16 +30,16 @@ public class TaskService {
     @Async
     public CompletableFuture<TaskDTO> addTask(TaskDTO taskDTO) {
         try {
-            User user = userService.getUserEntityById(taskDTO.getUser().getId()).join();
-            Task task = new Task();
-            task.setId(taskDTO.getId());
-            task.setTitle(taskDTO.getTitle());
-            task.setDescription(taskDTO.getDescription());
-            task.setStatus(taskDTO.isStatus());
-            task.setPriority(taskDTO.getPriority());
-            task.setUser(user);
+                User user = userService.getUserEntityById(taskDTO.getUser().getId()).join();
+                Task task = new Task();
+                task.setId(taskDTO.getId());
+                task.setTitle(taskDTO.getTitle());
+                task.setDescription(taskDTO.getDescription());
+                task.setStatus(taskDTO.isStatus());
+                task.setPriority(taskDTO.getPriority());
+                task.setUser(user);
 
-            Task savedTask = taskRepository.save(task);
+                Task savedTask = taskRepository.save(task);
 
             return CompletableFuture.completedFuture(convertToDTO(savedTask));
         } catch (Exception e) {
